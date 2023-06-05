@@ -22,7 +22,6 @@ fabrica = capitalize(input("Digite a fábrica do produto: "))
 cod_fabrica = input("Digite o código que a fábrica dá ao produto: ")
 data_compra = today()
 
-
 # Transformando a categoria no ID da categoria selecionada
 linha_categoria = tab_categoria.loc[tab_categoria['Categoria'] == categoria]
 categoria = linha_categoria['ID'].iloc[0]
@@ -36,10 +35,21 @@ linha_fabrica = tab_fabrica.loc[tab_fabrica["Fábrica"] == fabrica]
 fabrica = linha_fabrica['ID'].iloc[0]
 
 d = {'Codigo': [codigo], 'cdProduto': [cd_produto], 'cdCategoria': [categoria], 'Metal': [metal],
-     'Nome': [nome], 'Modalidade': [modal], 'Custo': [custo], ' Vista': [vista], 'Prazo': [prazo],
-     'cdFabrica': [fabrica], 'Cod Fabrica': [cod_fabrica], 'Data Compra': [data_compra]}
+     'Nome': [nome], 'Modalidade': [modal], 'Custo': [custo], 'Vista': [vista], 'Prazo': [prazo],
+     'cdFabrica': [fabrica], 'Cod Fabrica': [cod_fabrica], 'Data compra': [data_compra]}
 
+# Transformando o dict da linha de cadastro em um DataFrame
 linha = pd.DataFrame(data=d)
 
+# Concatenando a nova linha na tabela
 resultado = pd.concat([tab_produtos, linha], axis=0)
 print(resultado)
+
+verif = input('Deseja salvar? (s/n)')
+if verif == 's':
+    # Exportando a nova BD
+    resultado.to_excel('teste.xlsx')
+else:
+     
+    print('Alterações descartadas')
+
